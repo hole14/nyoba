@@ -21,11 +21,11 @@ async function createPatient() {
 
 //read
 async function getPatients() {
-    const res = await fetch('${BASE_URL}/Patient?family=smith');
+    const res = await fetch(`${BASE_URL}/Patient?family=smith`);
     const data = await res.json();
     data.entry?.forEach((e:any) => {
         const n = e.resource.name?.[0];
-        console.log('ID: ${e.resource.id}, Name: ${n?.given?.join(" ")} ${n?.family}');
+        console.log(`ID: ${e.resource.id}, Name: ${n?.given?.join(" ")} ${n?.family}`);
     });
 }
 
@@ -35,7 +35,7 @@ async function updatePatient(patientId: string) {
         resourceType: "Patient",
         name: [{ family: "Smith", given: ["Anna"]}]
     };
-    const res = await fetch('${BASE_URL}/Patient/${patientId}', {
+    const res = await fetch(`${BASE_URL}/Patient/${patientId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/fhir+json"},
         body: JSON.stringify(updateData)
@@ -46,7 +46,7 @@ async function updatePatient(patientId: string) {
 
 //delete
 async function deletePatient(patientId: string) {
-    const res = await fetch('${BASE_URL}/Patient/${patientId}', {method: "DELETE"});
+    const res = await fetch(`${BASE_URL}/Patient/${patientId}`, {method: "DELETE"});
     console.log("Deleted Patient:", res.status);
 }
 
@@ -55,4 +55,16 @@ async function deletePatient(patientId: string) {
     await getPatients();
     await updatePatient('123');
     await deletePatient('123');
+})
+
+
+const pantients = [
+    { name: [{ given:["Alice"], family: "Smith"}]},
+    { name: [{ given:["Bob"], family: "Johnson"}]},
+    { name: [{ given:["Charlie"], family: "Brown"}]}
+];
+
+pantients.forEach(p=>{
+    const n = p.name[0];
+    console.log(`${n.given.join(" ")} ${n.family}`);
 })
