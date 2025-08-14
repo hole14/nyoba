@@ -32,3 +32,42 @@ class HospitalPatient(models.Model):
 
     def delete_patient(self):
         self.unlink()
+
+pantient = [
+            {"name": "John", "age": 45, "gender": "male"}, 
+            {"name": "Jane", "age": 35, "gender": "female"}, 
+            {"name": "Doe", "age": 50, "gender": "male"}
+            ]
+
+for p in pantient:
+    print(p["name"], p["age"])
+
+filtered = [p for p in pantient if p["age"] > 40]
+print(filtered)
+
+avg = sum(p["age"] for p in pantient)/len(pantient)
+print(avg)
+
+for p in pantient:
+    p["gender"] = "male"
+print(pantient)
+
+for p in pantient:
+    if p["name"]=="Alice":
+        p["name"]="Alicia"
+
+print(pantient[0])
+
+for p in pantient:
+    if p["name"].startswith("B"):
+        print(p["name"])
+
+pantient = [p for p in pantient if p["age"]>=30]
+print(pantient)
+
+def add_patient(lst, name, age, gender):
+    lst.append({"name":name,"age":age,"gender":gender})
+add_patient(pantient,"Charlie",28,"male")
+
+names = [p["name"] for p in pantient]
+print(names)
