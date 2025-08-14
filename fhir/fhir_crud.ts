@@ -59,12 +59,46 @@ async function deletePatient(patientId: string) {
 
 
 const pantients = [
-    { name: [{ given:["Alice"], family: "Smith"}]},
-    { name: [{ given:["Bob"], family: "Johnson"}]},
-    { name: [{ given:["Charlie"], family: "Brown"}]}
+    { name: [{ given:["Alice"], family: "Smith"}], age: 35, gender: 'male' },
+    { name: [{ given:["Bob"], family: "Johnson"}], age: 45, gender: 'female' },
+    { name: [{ given:["Charlie"], family: "Brown"}],  age: 30, gender: 'female'},
+    { name: [{ given:["David"], family: "Smith"}], age: 25, gender: 'male' },
 ];
 
 pantients.forEach(p=>{
     const n = p.name[0];
     console.log(`${n.given.join(" ")} ${n.family}`);
-})
+});
+
+const filtered = pantients.filter(p=>p.name[0].family === "Smith");
+console.log(filtered);
+
+pantients.filter(p=>p.age > 30).forEach(p=>console.log(p.name));
+
+// 2 pasien pertama
+pantients.slice(0, 2).forEach(p=>console.log(p.name));
+
+// tambah gender
+pantients.forEach(p=>p.gender='male');
+console.log(pantients);
+
+pantients.forEach(p=>{
+    if (p.age > 30) {
+        p.name[0].given.push("Senior");
+    } else {
+        p.name[0].given.push("Junior");
+    }
+
+    if(p.name[0].given[0]=== "Alice") p.name[0].given[0] = "Alicia";
+});
+
+const avg = pantients.reduce((sum, p)=>sum + p.age, 0)/pantients.length;
+console.log(avg);
+
+const withGender = pantients.filter(p=>p.gender);
+console.log(withGender);
+
+pantients.filter(p=>p.name[0].given[0].startsWith("A")).forEach(p=>console.log(p.name[0].given.join(" ")));
+
+const names = pantients.map(p=>p.name[0].given.join(" ")+" "+p.name[0].family);
+console.log(names);
